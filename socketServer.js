@@ -68,31 +68,31 @@ const socketServer = (socket) => {
         user && socket.to(`${user.socketId}`).emit('unFollowToClient', newUser)
     })
 
-    // CreatePost
-    socket.on('createPost', newPost => {
-        const ids = [...newPost.user.followers, newPost.user._id]
-        const clients = users.filter(user =>user.id !== ids.includes(user.id))
-        // console.log(clients)
+    // // CreatePost
+    // socket.on('createPost', newPost => {
+    //     const ids = [...newPost.user.followers, newPost.user._id]
+    //     const clients = users.filter(user =>user.id !== ids.includes(user.id))
+    //     // console.log(clients)
 
-        if (clients.length > 0) {
-            clients.forEach(client => {
-                socket.to(`${client.socketId}`).emit('createPostToClient', newPost)
-            })
-        }
-    })
+    //     if (clients.length > 0) {
+    //         clients.forEach(client => {
+    //             socket.to(`${client.socketId}`).emit('createPostToClient', newPost)
+    //         })
+    //     }
+    // })
 
-    // Delete Post
-    socket.on('deletePost', post => {
-        const ids = [...newPost.user.followers, newPost.user._id]
-        const clients = users.filter(user =>user.id !== ids.includes(user.id))
-        // console.log(clients)
+    // // Delete Post
+    // socket.on('deletePost', post => {
+    //     const ids = [...newPost.user.followers, newPost.user._id]
+    //     const clients = users.filter(user =>user.id !== ids.includes(user.id))
+    //     // console.log(clients)
 
-        if (clients.length > 0) {
-            clients.forEach(client => {
-                socket.to(`${client.socketId}`).emit('createPostToClient', post)
-            })
-        }
-    })
+    //     if (clients.length > 0) {
+    //         clients.forEach(client => {
+    //             socket.to(`${client.socketId}`).emit('createPostToClient', post)
+    //         })
+    //     }
+    // })
 
     //Notification
     socket.on('createNotify', msg => {

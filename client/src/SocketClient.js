@@ -71,13 +71,13 @@ export default function SocketClient() {
     },[socket, dispatch, auth])
 
     // CreatePost
-    useEffect(() => {
-        socket.on('createPostToClient', newPost => {
-            dispatch({ type: POST_TYPES.CREATE_POST, payload: newPost})
-        })
+    // useEffect(() => {
+    //     socket.on('createPostToClient', newPost => {
+    //         dispatch({ type: POST_TYPES.CREATE_POST, payload: newPost})
+    //     })
 
-        return () => socket.off('createPostToClient')
-    },[socket, dispatch])
+    //     return () => socket.off('createPostToClient')
+    // },[socket, dispatch])
 
     // Notification
     useEffect(() => {

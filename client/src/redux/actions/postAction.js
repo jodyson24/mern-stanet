@@ -29,7 +29,7 @@ export const createPost = ({ content, images, auth, socket }) => async (dispatch
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
 
-        socket.emit('createPost', newPost )
+        // socket.emit('createPost', newPost )
 
         // Notfiy
         const msg = {
