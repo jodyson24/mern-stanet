@@ -1,0 +1,42 @@
+{
+  "name": "insta-sample",
+  "version": "1.0.0",
+  "description": "An instagram clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm help",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "cd client && npm run start",
+    "server-install": "npm install",
+    "client-install": "cd client && npm install",
+    "install-all": "concurrently \"npm run server-install\" \"npm run client-install\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+"heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "keywords": [
+    "instagram",
+    "clone",
+    "nodejs",
+    "react",
+    "mongodb"
+  ],
+  "author": "Josh Ade",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "compression": "^1.7.4",
+    "concurrently": "^5.3.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.14",
+    "socket.io": "^4.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
