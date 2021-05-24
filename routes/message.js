@@ -1,4 +1,4 @@
-const router = reqquire('express').Router()
+const router = require('express').Router()
 const messageCtrl = require('../controllers/message')
 const auth = require('../middleware/auth')
 
