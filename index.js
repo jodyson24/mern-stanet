@@ -28,6 +28,7 @@ app.use('/api', require('./routes/user'))
 app.use('/api', require('./routes/post'))
 app.use('/api', require('./routes/comment'))
 app.use('/api', require('./routes/notification'))
+app.use('/api', require('./routes/message'))
 //const msg = "Hello I got the service worker to work",
 
 

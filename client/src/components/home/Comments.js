@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import CommentDisplay from './comments/CommentDisplay'
 
-export default function Comments({ post }) {
+export default function Comments({ post, theme}) {
     const [comments, setComments] = useState([])
 
     const [showComments, setShowComments] = useState([])
@@ -25,7 +25,7 @@ export default function Comments({ post }) {
         <div className="coments">
             {
                 showComments.map((comment, index) => (
-                    <CommentDisplay key={index} comment={comment} post={post} 
+                    <CommentDisplay key={index} comment={comment} post={post} theme={theme}
                     replyCm={replyComments.filter(item => item.reply === comment._id)} />
                 ))
             }

@@ -52,6 +52,9 @@ img {
 @import url('./status_modal.css');
 @import url('./comments.css');
 @import url('./post_thumb.css');
+@import url('./message.css');
+@import url('./icons.css');
+
 
 /* ================= Responsive ============ */
 @media (max-width: 768px) {
@@ -87,6 +90,9 @@ img {
   }
   .wrap_page{
     margin-bottom:  60px;
+  }
+  .message{
+    height: calc(100vh - 150vh);
   }
 }
 

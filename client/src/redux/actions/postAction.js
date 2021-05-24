@@ -21,10 +21,11 @@ export const createPost = ({ content, images, auth, socket }) => async (dispatch
         if (images.length > 0) media = await imageUpload(images)
 
         const res = await postDataAPI('posts', { content, images: media }, auth.token)
-        const newPost = { ...res.data.newPost, user: auth.user }
+        // console.log(res)
+        // const newPost = { ...res.data.newPost, user: auth.user }
         dispatch({
             type: POST_TYPES.CREATE_POST,
-            payload: newPost
+            payload: { ...res.data.newPost, user: auth.user }
         })
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
@@ -57,7 +58,7 @@ export const getPosts = (token) => async (dispatch) => {
         dispatch({ type: POST_TYPES.LOADING_POST, payload: true })
 
         const res = await getDataAPI('posts', token)
-        //    console.log(res)
+        // console.log(res)
         dispatch({
             type: POST_TYPES.GET_POSTS,
             payload: { ...res.data, page: 2 }
@@ -109,10 +110,22 @@ export const likePost = ({ post, auth, socket }) => async (dispatch) => {
         await patchDataAPI(`post/${post._id}/like`, null, auth.token)
         socket.emit('likePost', newPost)
 
+        // Notfiy
+        const msg = {
+            id: auth.user._id,
+            text: 'likes your post.',
+            recipients: [post.user._id],
+            url: `/post/${post._id}`,
+            content: post.content,
+            image: post.media[0].url
+        }
+
+        dispatch(createNotify({ msg, auth, socket }))
+
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: { error: err.response.data.msg }
+            payload: { error: err.response.data.msg}
         })
     }
 }
@@ -124,6 +137,16 @@ export const unLikePost = ({ post, auth, socket }) => async (dispatch) => {
     try {
         await patchDataAPI(`post/${post._id}/unlike`, null, auth.token)
         socket.emit('unLikePost', newPost)
+
+        // Notfiy
+        const msg = {
+            id: auth.user._id,
+            text: 'likes your post.',
+            recipients: [post.user._id],
+            url: `/post/${post._id}`,
+        }
+
+        dispatch(removeNotify({ msg, auth, socket }))
 
     } catch (err) {
         dispatch({

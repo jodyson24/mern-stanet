@@ -5,6 +5,8 @@ const notification = {
         try {
             const {id, recipients, url, text, content, image} = req.body
 
+            if(recipients.includes(req.user._id.toString())) return;
+
             const notify = new Notifications({
                 id, recipients, url, text, content, image, user: req.user._id
             })
@@ -30,9 +32,29 @@ const notification = {
     get: async (req, res) => {
         try {
             const notify =  await Notifications.find({recipients: req.user._id})
-            .sort('isRead').populate('user', 'avatar username fullname')
+            .sort('-createdAt').populate('user', 'avatar username fullname')
 
             return res.json({notify})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    isRead: async (req, res) => {
+        try {
+            const notifies =  await Notifications.findOneAndUpdate({_id: req.params.id}, {
+                isRead: true
+            })
+
+            return res.json({notifies})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    deleteAll: async (req, res) => {
+        try {
+            const notifies =  await Notifications.deleteMany({recipients: req.user._id})
+
+            return res.json({notifies})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

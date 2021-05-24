@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost } from '../redux/actions/postAction'
 import { GLOBALTYPES } from '../redux/actions/globalTypes'
+import Icons from './Icons'
+import { imageShow, videoShow } from '../utils/mediaShow'
+
 
 export default function StatusModal() {
     const { auth, theme, status, socket } = useSelector(state => state)
@@ -23,8 +26,8 @@ export default function StatusModal() {
         files.forEach(file => {
             if (!file) return err = "file does not exist."
 
-            if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-                return err = 'image format is incorrect'
+            if (file.size > 1024 * 1024 * 5) {
+                return err = 'File size too large'
             }
 
             return newImages.push(file)
@@ -63,7 +66,7 @@ export default function StatusModal() {
         const ctx = refCanvas.current.getContext('2d')
         ctx.drawImage(videoRef.current, 0, 0, width, height)
         let URL = refCanvas.current.toDataURL()
-        setImages([...images, {camera: URL}])
+        setImages([...images, { camera: URL }])
     }
 
     const handleStopStream = () => {
@@ -73,29 +76,30 @@ export default function StatusModal() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(images.length === 0)
-        return({
-            type: GLOBALTYPES.ALERT, payload: {error: "Please add an image!"}
-        })
+        if (images.length === 0)
+            return ({
+                type: GLOBALTYPES.ALERT, payload: { error: "Please add an image!" }
+            })
 
-        if(status.onEdit){
-            dispatch(updatePost({content, images, auth, status}))
+        if (status.onEdit) {
+            dispatch(updatePost({ content, images, auth, status }))
         } else {
-            dispatch(createPost({content, images, auth, socket}))
+            dispatch(createPost({ content, images, auth, socket }))
         }
 
         setContent('')
         setImages([])
-        if(tracks) tracks.stop()
-        dispatch({ type: GLOBALTYPES.STATUS, payload: false})
+        if (tracks) tracks.stop()
+        dispatch({ type: GLOBALTYPES.STATUS, payload: false })
     }
 
     useEffect(() => {
-        if(status.onEdit){
+        if (status.onEdit) {
             setContent(status.content)
             setImages(status.images)
         }
     }, [status])
+
 
     return (
         <div className="status_modal">
@@ -112,21 +116,40 @@ export default function StatusModal() {
                 <div className="status_body">
                     <textarea name="content" value={content}
                         placeholder={`${auth.user.fullname}, what are you thinking?`}
-                        onChange={e => setContent(e.target.value)} />
+                        onChange={e => setContent(e.target.value)}
+                        style={{
+                            filter: theme ? 'invert(1)' : 'invert(0)',
+                            color: theme ? 'white' : '#111',
+                            background: theme ? 'rgba(0, 0, 0, .03)' : '',
+                        }}
+                    />
+
+                    <div className="d-flex">
+                        <div className="flex-fill"></div>
+                        <Icons setContent={setContent} content={content} theme={theme} />
+                    </div>
 
                     <div className="show_images">
                         {
                             images.map((img, index) => (
                                 <div key={index} id="file_img">
-                                    <img src={
-                                        img.camera ? 
-                                        img.camera : img.url
-                                        ? img.url : URL.createObjectURL(img)
-                                    } 
-                                    alt="images"
-                                        style={{ filter: theme ? 'invert(1)' : 'invert(0)' }}
-                                        className="img-thumbnail"
-                                    />
+                                    {
+                                        img.camera ? imageShow(img.camera)
+                                            : img.url
+                                                ? <>
+                                                    {
+                                                        img.url.match(/video/i)
+                                                            ? videoShow(img.url) : imageShow(img.url)
+                                                    }
+                                                </>
+                                                : <>
+                                                    {
+                                                        img.type.match(/video/i)
+                                                            ? videoShow(URL.createObjectURL(img))
+                                                            : imageShow(URL.createObjectURL(img))
+                                                    }
+                                                </>
+                                    }
                                     <span onClick={() => deleteImages(index)}
                                     >&times;</span>
                                 </div>
@@ -142,7 +165,7 @@ export default function StatusModal() {
                             />
 
                             <span onClick={handleStopStream} >&times;</span>
-                            <canvas ref={refCanvas} style={{display: 'none'}} />
+                            <canvas ref={refCanvas} style={{ display: 'none' }} />
                         </div>
 
                     }
@@ -157,7 +180,7 @@ export default function StatusModal() {
                                     <div className="file_upload">
                                         <i className="fa fa-image" />
                                         <input type="file" name="file" id="file"
-                                            multiple accept="image/*" onChange={handleChangeImages} />
+                                            multiple accept="image/*,video/*" onChange={handleChangeImages} />
                                     </div>
                                 </>
                         }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import CommentCard from './CommentCard'
 
-export default function CommentDisplay({ comment, post, replyCm }) {
+export default function CommentDisplay({ comment, post, replyCm, theme }) {
     const [showRep, setShowRep] = useState([])
     const [next, setNext] = useState(1)
 
@@ -21,6 +21,7 @@ export default function CommentDisplay({ comment, post, replyCm }) {
                                 comment={item}
                                 post={post}
                                 commentId={comment._id}
+                                theme={theme}
                             />
                         ))
                     }

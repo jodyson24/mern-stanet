@@ -13,11 +13,10 @@ export default function PostCard({ post, theme }) {
             <div className="card my-3">
                 <CardHeader post={post} />
                 <CardBody post={post} theme={theme} />
-                <CardFooter post={post} />
-
-
-                <Comments post={post} />
-                <InputComment post={post} />
+                <CardFooter post={post}/>
+ 
+                <Comments post={post} theme={theme} />
+                <InputComment post={post} theme={theme} />
             </div>
         </div>
     )

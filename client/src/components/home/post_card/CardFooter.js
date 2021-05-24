@@ -106,7 +106,8 @@ export default function CardFooter({ post }) {
 
             <div className="card_body-content d-flex my-1">
                  <span> <h6 className="me-2 p-1">{post.user.fullname}</h6> </span>
-                <span> 
+                <span style={{filter: theme ? 'invert(1)' : 'invert(0)',
+                    color: theme ?  'white' : '#111'}}> 
                     {
                         post.content.length < 60 
                         ? post.content

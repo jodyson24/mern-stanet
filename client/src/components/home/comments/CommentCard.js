@@ -9,7 +9,7 @@ import { likeComment, unLikeComment, updateComment } from '../../../redux/action
 import InputComment from '../InputComment'
 
 
-export default function CommentCard({ children, comment, post, commentId }) {
+export default function CommentCard({ children, comment, post, commentId, theme }) {
     const { auth } = useSelector(state => state)
     const dispatch = useDispatch()
 
@@ -76,7 +76,8 @@ export default function CommentCard({ children, comment, post, commentId }) {
             </Link>
 
             <div className="comment_content">
-                <div className="flex-fill">
+                <div className="flex-fill" style={{filter: theme ? 'invert(1)' : 'invert(0)',
+                    color: theme ?  'white' : '#111'}} >
                     {
                         onEdit
                             ? <textarea rows="5" value={content} onChange={e => setContent(e.target.value)} />
@@ -143,7 +144,7 @@ export default function CommentCard({ children, comment, post, commentId }) {
 
             {
                 onReply && 
-                <InputComment post={post} onReply={onReply} setOnReply={setOnReply} >
+                <InputComment post={post} onReply={onReply} setOnReply={setOnReply}  theme={theme}>
                     <Link to={`/profile/${onReply.user._id}`} className="mr-1" >
                         @{onReply.user.fullname}
                     </Link>

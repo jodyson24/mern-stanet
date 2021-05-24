@@ -76,7 +76,8 @@
     width: 100%;
     height: 100%;
 }
-.status_body .show_images #file_img img{
+.status_body .show_images #file_img img,
+.status_body .show_images #file_img video{
     display: block;
     object-fit: cover;
     width: 100%;
