@@ -18,13 +18,13 @@ router.patch('/post/:id/unlike', auth, postCtrl.unLikePost)
 
 router.get('/user_posts/:id', auth, postCtrl.getUserPosts)
 
-router.get('/post_discover', auth, postCtrl.getPostsDiscover)
+router.get('/post_discover', auth, postCtrl.getPostsDicover)
 
 router.patch('/savePost/:id', auth, postCtrl.savePost)
 
 router.patch('/unSavePost/:id', auth, postCtrl.unSavePost)
 
-router.get('/getSavedPosts', auth, postCtrl.getSavedPosts)
+router.get('/getSavedPosts', auth, postCtrl.getSavePosts)
 
 
 module.exports = router
