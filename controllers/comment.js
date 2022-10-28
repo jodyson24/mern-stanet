@@ -1,5 +1,5 @@
 const Comments = require('../models/comment')
-const Posts = require('../models/posts')
+const Posts = require('../models/post')
 
 
 const comment = {
@@ -8,21 +8,20 @@ const comment = {
             const { postId, content, tag, reply, postUserId } = req.body
 
             const post = await Posts.findById(postId)
-            if(!post) return res.status(400).json({msg: "This post does not exists"})
+            if(!post) return res.status(400).json({msg: "This post does not exist."})
 
             if(reply){
                 const cm = await Comments.findById(reply)
-                if(!cm) return res.status(400).json({msg: "This comment does not exists"})
-
+                if(!cm) return res.status(400).json({msg: "This comment does not exist."})
             }
 
-            const newComment =  new Comments({
+            const newComment = new Comments({
                 user: req.user._id, content, tag, reply, postUserId, postId
             })
 
             await Posts.findOneAndUpdate({_id: postId}, {
                 $push: {comments: newComment._id}
-            })
+            }, {new: true})
 
             await newComment.save()
 
@@ -35,13 +34,13 @@ const comment = {
     updateComment: async (req, res) => {
         try {
             const { content } = req.body
-
+            
             await Comments.findOneAndUpdate({
                 _id: req.params.id, user: req.user._id
             }, {content})
 
-            res.json({msg: 'Comment updated!'})
-            
+            res.json({msg: 'Update Success!'})
+
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -49,24 +48,27 @@ const comment = {
     likeComment: async (req, res) => {
         try {
             const comment = await Comments.find({_id: req.params.id, likes: req.user._id})
-            if(comment.length > 0) return res.status(400).json({msg: "You already liked this Comment!"})
+            if(comment.length > 0) return res.status(400).json({msg: "You liked this post."})
 
             await Comments.findOneAndUpdate({_id: req.params.id}, {
                 $push: {likes: req.user._id}
             }, {new: true})
 
-            res.json({msg: 'Comment liked! '})
+            res.json({msg: 'Liked Comment!'})
+
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
     },
     unLikeComment: async (req, res) => {
         try {
+
             await Comments.findOneAndUpdate({_id: req.params.id}, {
                 $pull: {likes: req.user._id}
             }, {new: true})
 
-            res.json({msg: 'Comment unliked! '})
+            res.json({msg: 'UnLiked Comment!'})
+
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -85,11 +87,12 @@ const comment = {
                 $pull: {comments: req.params.id}
             })
 
-            res.json({msg: "Comment Deleted!"})
+            res.json({msg: 'Deleted Comment!'})
+
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
-    }
+    },
 }
 
 
