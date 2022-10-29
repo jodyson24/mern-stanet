@@ -13,11 +13,14 @@
     border: none;
     outline: none;
     background: #f7f7f7;
-    color:  blue;
+    color: blue;
     font-weight: 600;
 }
+.comment_input .dropdown-menu{
+    transform: translate3d(-120px, -200px, 0px) !important;
+}
 
-/* ========== Comments =============== */
+/* ---------- Comments ---------- */
 .comment_display{
     padding: 10px 25px;
 }
@@ -34,6 +37,7 @@
     cursor: pointer;
     color: crimson;
 }
+
 .comment_card .comment_content .nav-item{
     cursor: pointer;
     opacity: 0;
@@ -51,8 +55,7 @@
     margin: 10px 0;
 }
 .comment_card .comment_content textarea{
-        width: 100%;
-        border: none;
-        outline: none;
-        background: #fff;
+    width: 100%;
+    border: none;
+    outline: none;
 }

@@ -2,10 +2,12 @@
     width: 100%;
     min-height: 70px;
     position: sticky;
-    top: 0;
+    top:0;
     left: 0;
     z-index: 2;
     box-shadow: 0 0 10px #ddd;
+    background: #f8f9fa;
+    border: 1px solid rgb(0, 0, 0, .125);
 }
 .header .navbar{
     width: 100%;
@@ -13,9 +15,9 @@
 }
 .header .logo h1{
     font-size: 2rem;
-}
+} 
 
-/* ======== Header MEnu ============= */
+/* ----------- Header Menu ---------- */
 .header .menu li{
     opacity: 0.5;
 }
@@ -29,14 +31,14 @@
     position: absolute;
     left: inherit;
     right: 0;
-    z-index: 10;
 }
 .header .menu label{
     cursor: pointer;
 }
+
 .header .menu .notify_length{
     position: absolute;
-    top: 43%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
@@ -44,7 +46,7 @@
     font-size: 10px;
 }
 
-/* ============ SEARCH ========================*/
+/* ---------- Header Search -------- */
 .header .search_form{
     position: relative;
 }
@@ -55,8 +57,7 @@
     width: 100%;
     outline: none;
     text-indent: 5px;
-    border-radius: 14px;
-    padding: 4px 10px;
+    border-radius: 3px;
 }
 .header .search_form .search_icon{
     position: absolute;
@@ -72,8 +73,8 @@
 }
 .header .search_form .close_search{
     position: absolute;
-    top: 4px;
-    right: 12px;
+    top: 0;
+    right: 5px;
     cursor: pointer;
     font-weight: 900;
     color: crimson;
@@ -95,7 +96,4 @@
     height: 15px;
     transform: translateY(-50%);
 }
-
-
-
 

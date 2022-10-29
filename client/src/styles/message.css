@@ -6,6 +6,7 @@
     border-radius: 3px;
     background: #fbfbfb;
 }
+
 .message_header{
     width: 100%;
     height: 60px;
@@ -40,12 +41,14 @@
 .message_chat_list .message_user.active{
     background: #eee;
 }
+
 .message_chat_list .message_user a{
     color: #555;
 }
 .message_chat_list .message_user a:hover{
     text-decoration: none;
 }
+
 .message_chat_list .message_user .fa-circle{
     font-size: 8px;
     color: #aaa;
@@ -54,7 +57,7 @@
     color: forestgreen;
 }
 
-/* ========== Chat input ======== */
+/* -------- Chat Input----- */
 .chat_input{
     display: flex;
     align-items: center;
@@ -64,10 +67,9 @@
 }
 .chat_input input{
     width: 100%;
-    height: 100%;
+    height: 49px;
     border: none;
     outline: none;
-    background: white;
 }
 .chat_input button{
     border: none;
@@ -82,7 +84,7 @@
 }
 .chat_input .file_upload #file{
     position: absolute;
-    top: 0;
+    top:0;
     left: 0;
     opacity: 0;
 }
@@ -110,17 +112,16 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
 }
 .show_media #file_media span{
-    text-align: center;
     position: absolute;
     top: 0;
     right: 0;
     z-index: 4;
     background: white;
     border: 1px solid crimson;
-    padding: 3px 6px;
+    padding: 3px 7px;
     color: crimson;
     border-radius: 50%;
     font-size: 10px;
@@ -128,7 +129,7 @@
     cursor: pointer;
 }
 
-/* ========= Chat container ========== */
+/* -------- Chat Container ----- */
 .chat_container{
     width: 100%;
     height: calc(100% - 110px);
@@ -177,4 +178,22 @@
 }
 .chat_title{
     margin-bottom: 3px;
+}
+.you_content{
+    position: relative;
+}
+.you_content .fa-trash{
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0;
+}
+.you_content:hover .fa-trash{
+    opacity: 1;
+}
+.chat_input .dropdown-menu{
+    transform: translate3d(-110px, -200px, 0px) !important;
 }

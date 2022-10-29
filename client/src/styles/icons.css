@@ -3,9 +3,6 @@
     grid-template-columns: repeat(4, 50px);
     text-align: center;
     cursor: pointer;
-    max-height: 250px;
-    height: 200px;
-    overflow-y: auto;
 }
 .reactions span{
     margin: 3px 0;
