@@ -1,5 +1,5 @@
-import { EditData } from '../actions/globalTypes';
 import { NOTIFY_TYPES } from '../actions/notifyAction'
+import { EditData } from '../actions/globalTypes'
 
 const initialState = {
     loading: false,
@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const notifyReducer = (state = initialState, action) => {
-    switch (action.type) {
+    switch (action.type){
         case NOTIFY_TYPES.GET_NOTIFIES:
             return {
                 ...state,
@@ -45,5 +45,6 @@ const notifyReducer = (state = initialState, action) => {
             return state;
     }
 }
+
 
 export default notifyReducer

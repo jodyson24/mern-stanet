@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 import auth from './authReducer'
 import alert from './alertReducer'
 import theme from './themeReducer'
@@ -12,6 +12,10 @@ import suggestions from './suggestionsReducer'
 import socket from './socketReducer'
 import notify from './notifyReducer'
 import message from './messageReducer'
+import online from './onlineReducer'
+import call from './callReducer'
+import peer from './peerReducer'
+
 
 export default combineReducers({
     auth,
@@ -26,5 +30,8 @@ export default combineReducers({
     suggestions,
     socket,
     notify,
-    message
+    message,
+    online,
+    call,
+    peer
 })

@@ -5,8 +5,9 @@ const initialState = {
     users: []
 }
 
+
 const suggestionsReducer = (state = initialState, action) => {
-    switch (action.type) {
+    switch (action.type){
         case SUGGES_TYPES.LOADING:
             return {
                 ...state,
@@ -18,7 +19,7 @@ const suggestionsReducer = (state = initialState, action) => {
                 users: action.payload.users
             };
         default:
-            return state
+            return state;
     }
 }
 
