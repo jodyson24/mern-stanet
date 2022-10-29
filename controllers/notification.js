@@ -7,7 +7,7 @@ const notification = {
 
             if(recipients.includes(req.user._id.toString())) return;
 
-            const notify = new Notifies({
+            const notify = new Notifications({
                 id, recipients, url, text, content, image, user: req.user._id
             })
 
@@ -19,7 +19,7 @@ const notification = {
     },
     removeNotify: async (req, res) => {
         try {
-            const notify = await Notifies.findOneAndDelete({
+            const notify = await Notifications.findOneAndDelete({
                 id: req.params.id, url: req.query.url
             })
             
@@ -30,7 +30,7 @@ const notification = {
     },
     getNotifies: async (req, res) => {
         try {
-            const notifies = await Notifies.find({recipients: req.user._id})
+            const notifies = await Notifications.find({recipients: req.user._id})
             .sort('-createdAt').populate('user', 'avatar username')
             
             return res.json({notifies})
@@ -40,7 +40,7 @@ const notification = {
     },
     isReadNotify: async (req, res) => {
         try {
-            const notifies = await Notifies.findOneAndUpdate({_id: req.params.id}, {
+            const notifies = await Notifications.findOneAndUpdate({_id: req.params.id}, {
                 isRead: true
             })
 
@@ -51,7 +51,7 @@ const notification = {
     },
     deleteAllNotifies: async (req, res) => {
         try {
-            const notifies = await Notifies.deleteMany({recipients: req.user._id})
+            const notifies = await Notifications.deleteMany({recipients: req.user._id})
             
             return res.json({notifies})
         } catch (err) {
